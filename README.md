@@ -1,2 +1,1 @@
-# grok-qbo-integration
-grok-qbo-integration
+# Grok + QuickBooks Integration\nSimple Flask app for OAuth and data fetching
