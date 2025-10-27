@@ -8,8 +8,8 @@ app = Flask(__name__)
 # Your Intuit creds (set as env vars in Render later)
 CLIENT_ID = os.getenv('QBO_CLIENT_ID')
 CLIENT_SECRET = os.getenv('QBO_CLIENT_SECRET')
-REDIRECT_URI = os.getenv('REDIRECT_URI', 'https://your-app-name.onrender.com/callback')  # Render will set this
 BASE_URL = 'https://appcenter.intuit.com/connect'
+REDIRECT_URI = os.getenv('REDIRECT_URI', 'https://grok-qbo-integration.onrender.com/callback')
 
 @app.route('/')
 def home():
@@ -24,7 +24,7 @@ def auth():
         'scope': 'com.intuit.quickbooks.accounting',
         'state': 'test_state'
     }
-    auth_url = f"{BASE_URL}/v1/authorize?{urlencode(params)}"
+    auth_url = f"{BASE_URL}/oauth2?{urlencode(params)}"
     return redirect(auth_url)
 
 @app.route('/callback')
