@@ -9,7 +9,7 @@ app = Flask(__name__)
 CLIENT_ID = os.getenv('QBO_CLIENT_ID')
 CLIENT_SECRET = os.getenv('QBO_CLIENT_SECRET')
 REDIRECT_URI = os.getenv('REDIRECT_URI', 'https://your-app-name.onrender.com/callback')  # Render will set this
-BASE_URL = 'https://oauth.platform.intuit.com/oauth2'
+BASE_URL = 'https://appcenter.intuit.com/connect'
 
 @app.route('/')
 def home():
@@ -38,7 +38,7 @@ def callback():
             'redirect_uri': REDIRECT_URI,
             'code': code
         }
-        response = requests.post(f"{BASE_URL}/v1/tokens/bearer", data=token_data)
+        response = requests.post(f"{BASE_URL}/oauth2/token", data=token_data)
         if response.status_code == 200:
             tokens = response.json()
             return render_template_string(LAUNCH_HTML, token=tokens.get('access_token', 'received'))
